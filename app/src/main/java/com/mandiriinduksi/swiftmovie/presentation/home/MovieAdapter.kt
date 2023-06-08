@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.HomeMovieCardBinding
 
-class MovieAdapter (private val movies: ArrayList<Movie>): RecyclerView.Adapter<MovieViewHolder>() {
+open class MovieAdapter (private var movies: List<Movie>): RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(HomeMovieCardBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -26,8 +26,13 @@ class MovieAdapter (private val movies: ArrayList<Movie>): RecyclerView.Adapter<
             .into(holder.moviePoster)
     }
 
-    fun addData(list: List<Movie>){
-        movies.addAll(list)
+//    fun addData(list: List<Movie>){
+//        movies.addAll(list)
+//        notifyDataSetChanged()
+//    }
+
+    fun updateMovie (movies: List<Movie>){
+        this.movies = movies
         notifyDataSetChanged()
     }
 }

@@ -1,11 +1,16 @@
 package com.mandiriinduksi.swiftmovie.presentation.home
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.mandiriinduksi.swiftmovie.R
 import com.mandiriinduksi.swiftmovie.data.network.ApiService
 import com.mandiriinduksi.swiftmovie.data.network.MoviesRepository
@@ -16,13 +21,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.log
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var apiService: ApiService
 
-    lateinit var movieAdapter: MovieAdapter
+//    lateinit var movieAdapter: MovieAdapter
+    lateinit var moviePopularAdapter: MoviePopularAdapter
+    lateinit var movieTopRatedAdapter: MovieTopRatedAdapter
+
+    lateinit var moviePopularRecyclerView: RecyclerView
+    lateinit var movieTopRatedRecyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -39,10 +50,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        apiService = RetrofitInstance.apiService
-        movieAdapter = MovieAdapter(ArrayList())
-        MoviesRepository.getPopularMovies()
-
+        setupApi()
+        setupLayoutManager()
+        setupTopRatedRV()
+        setupPopularRV()
     }
 
     companion object {
@@ -51,14 +62,57 @@ class HomeFragment : Fragment() {
             HomeFragment()
     }
 
-//    fun getMovie(){
-//        CoroutineScope(Dispatchers.Main).launch {
-//            val movies = apiService.getMovie("55c3402a26c2959019ef64b285ec6b6a",1)
-//            withContext(Dispatchers.Main){
-////                movieAdapter.addData(movies.body())
-////                Log.d("berhasil brok", movies.body()?.result.toString())
-//            }
-////            Log.d("test", "fail")
-//        }
-//    }
+    private fun setupApi(){
+        apiService = RetrofitInstance.apiService
+    }
+
+    private fun setupLayoutManager() : LayoutManager{
+        val horizontalCardLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        return horizontalCardLayoutManager
+    }
+
+    private fun setupPopularRV(){
+        moviePopularRecyclerView = binding.rvPopularMovies
+        val layoutManager = setupLayoutManager()
+        moviePopularRecyclerView.layoutManager = layoutManager
+        setupPopularMovieAdapter()
+
+        MoviesRepository.getPopularMovies(onSuccess = ::onPopularMoviesFetched, onError = ::onError)
+    }
+
+    private fun setupTopRatedRV(){
+        movieTopRatedRecyclerView = binding.rvTopRatedMovies
+        val layoutManager = setupLayoutManager()
+        movieTopRatedRecyclerView.layoutManager = layoutManager
+        setupTopRatedMovieAdapter()
+
+        MoviesRepository.getTopRatedMovies(onSuccess = ::onTopRatedMoviesFetched, onError = ::onError)
+    }
+
+    //-----------------------------------------------------------------------
+    private fun setupPopularMovieAdapter(){
+        moviePopularAdapter = MoviePopularAdapter(listOf())
+        moviePopularRecyclerView.adapter = moviePopularAdapter
+    }
+
+    private fun setupTopRatedMovieAdapter(){
+        movieTopRatedAdapter = MovieTopRatedAdapter(listOf())
+        movieTopRatedRecyclerView.adapter = movieTopRatedAdapter
+    }
+
+
+    // ---------------------------------------------------------------------
+    private fun onPopularMoviesFetched(movies: List<Movie>){
+        Log.d("Repository", "Moviesaaa: $movies from main activity")
+        moviePopularAdapter.updateMovie(movies)
+    }
+
+    private fun onTopRatedMoviesFetched(movies: List<Movie>){
+        Log.d("Repository", "Moviesaaa: $movies from main activity")
+        movieTopRatedAdapter.updateMovie(movies)
+    }
+
+    private fun onError(){
+        Log.d("Repository", "Response null from main activity")
+    }
 }
