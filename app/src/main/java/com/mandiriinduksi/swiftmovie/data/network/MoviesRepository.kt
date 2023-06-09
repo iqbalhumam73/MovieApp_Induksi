@@ -19,46 +19,8 @@ object MoviesRepository {
         apiService = retrofit.create(ApiService::class.java)
     }
 
-    fun getPopularMovies(page: Int = 1, onSuccess: (movies: List<Movie>) -> Unit, onError: () -> Unit){
-        Log.d("Repository", "Running getPopularMovies function")
-        apiService.getPopularMovies(page = page).enqueue(object: Callback<BaseMovie>{
-            override fun onResponse(call: Call<BaseMovie>, response: Response<BaseMovie>){
-                if (response.isSuccessful){
-                    val responseBody = response.body()
-                    if(responseBody != null){
-//                        Log.d("Repository", "Moviesaaa: ${responseBody}")
-                        onSuccess.invoke(responseBody.movies)
-                    }
-                    else{
-//                        Log.d("Repository", "Response null :D")
-                        onError.invoke()
-                    }
-                }
-            }
+    fun getPopularMovies(page: Int) = apiService.getPopularMovies(page = page)
 
-            override fun onFailure(call: Call<BaseMovie>, t: Throwable) {
-//                Log.d("Respository", "Failed ")
-                onError.invoke()
-            }
-        })
-    }
+    fun getTopRatedMovies(page: Int) = apiService.getTopRatedrMovies(page = page)
 
-    fun getTopRatedMovies(page: Int = 1, onSuccess: (movies: List<Movie>) -> Unit, onError: () -> Unit){
-        apiService.getTopRatedrMovies(page = page).enqueue(object: Callback<BaseMovie>{
-            override fun onResponse(call: Call<BaseMovie>, response: Response<BaseMovie>) {
-                if (response.isSuccessful){
-                    val responseBody = response.body()
-                    if (responseBody != null){
-                        onSuccess.invoke(responseBody.movies)
-                    }
-                    else {
-                        onError.invoke()
-                    }
-                }
-            }
-            override fun onFailure(call: Call<BaseMovie>, t: Throwable) {
-                onError.invoke()
-            }
-        })
-    }
 }

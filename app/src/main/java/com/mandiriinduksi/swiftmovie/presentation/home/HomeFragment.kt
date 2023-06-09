@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -34,8 +35,12 @@ class HomeFragment : Fragment() {
 
     lateinit var moviePopularRecyclerView: RecyclerView
     lateinit var movieTopRatedRecyclerView: RecyclerView
+
+    lateinit var homeViewModel: HomeViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -77,7 +82,7 @@ class HomeFragment : Fragment() {
         moviePopularRecyclerView.layoutManager = layoutManager
         setupPopularMovieAdapter()
 
-        MoviesRepository.getPopularMovies(onSuccess = ::onPopularMoviesFetched, onError = ::onError)
+        homeViewModel.getPopularMovies(onSuccess = ::onPopularMoviesFetched, onError = ::onError)
     }
 
     private fun setupTopRatedRV(){
@@ -86,7 +91,7 @@ class HomeFragment : Fragment() {
         movieTopRatedRecyclerView.layoutManager = layoutManager
         setupTopRatedMovieAdapter()
 
-        MoviesRepository.getTopRatedMovies(onSuccess = ::onTopRatedMoviesFetched, onError = ::onError)
+        homeViewModel.getTopRatedMovies(onSuccess = ::onTopRatedMoviesFetched, onError = ::onError)
     }
 
     //-----------------------------------------------------------------------
@@ -99,7 +104,6 @@ class HomeFragment : Fragment() {
         movieTopRatedAdapter = MovieTopRatedAdapter(listOf())
         movieTopRatedRecyclerView.adapter = movieTopRatedAdapter
     }
-
 
     // ---------------------------------------------------------------------
     private fun onPopularMoviesFetched(movies: List<Movie>){
