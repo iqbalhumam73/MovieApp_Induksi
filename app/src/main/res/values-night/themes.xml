@@ -4,11 +4,11 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/red_6</item>
         <item name="colorPrimaryVariant">@color/red_8</item>
-        <item name="colorOnPrimary">@color/neutral_9</item>
+        <item name="colorOnPrimary">@color/neutral_10</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/red_6</item>
         <item name="colorSecondaryVariant">@color/red_8</item>
-        <item name="colorOnSecondary">@color/neutral_9</item>
+        <item name="colorOnSecondary">@color/neutral_10</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorOnPrimary</item>
         <!-- Customize your theme here. -->

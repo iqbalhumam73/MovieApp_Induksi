@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var apiService: ApiService
 
-//    lateinit var movieAdapter: MovieAdapter
+
     lateinit var moviePopularAdapter: MoviePopularAdapter
     lateinit var movieTopRatedAdapter: MovieTopRatedAdapter
 
@@ -52,8 +52,8 @@ class HomeFragment : Fragment() {
 
         setupApi()
         setupLayoutManager()
-        setupTopRatedRV()
         setupPopularRV()
+        setupTopRatedRV()
     }
 
     companion object {
