@@ -6,4 +6,5 @@ import com.mandiriinduksi.swiftmovie.databinding.HomeMovieCardBinding
 class MovieViewHolder(val recyclerBinding: HomeMovieCardBinding): RecyclerView.ViewHolder(recyclerBinding.root) {
     var moviePoster = recyclerBinding.ivMoviePoster
     var movieTitle = recyclerBinding.tvMovieTitle
+    var card = recyclerBinding.cardMovieHome
 }
