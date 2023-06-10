@@ -11,8 +11,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel: ViewModel() {
-    private val MoviePopularList = MutableLiveData<List<Movie>>()
-    private val ErrorMessage = MutableLiveData<String>()
 
     fun getPopularMovies(page: Int = 1, onSuccess: (movies: List<Movie>) -> Unit, onError: () -> Unit){
         Log.d("Repository", "Running getPopularMovies function")

@@ -1,9 +1,11 @@
 package com.mandiriinduksi.swiftmovie.data.network
 
 import com.mandiriinduksi.swiftmovie.data.network.response.BaseMovie
+import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -19,4 +21,10 @@ interface ApiService {
         @Query("api_key") apiKey: String = "55c3402a26c2959019ef64b285ec6b6a",
         @Query("page") page: Int
     ): Call<BaseMovie>
+
+    @GET("movie/{movie_id}")
+    fun getMovieDetail(
+        @Path("movie_id") movie_id: Long,
+        @Query("api_key") apiKey: String = "55c3402a26c2959019ef64b285ec6b6a"
+    ): Response<Movie>
 }

@@ -29,16 +29,18 @@
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail" >
         <argument
-            android:name="movieTitle"
+            android:name="movieTitleArgs"
             app:argType="string" />
         <argument
-            android:name="movieOverview"
+            android:name="movieOverviewArgs"
             app:argType="string" />
         <argument
-            android:name="movieRating"
+            android:name="movieRatingArgs"
             app:argType="string" />
         <argument
-            android:name="moviePoster"
+            android:name="moviePosterArgs"
             app:argType="string" />
+        <argument android:name="movieIdArgs"
+            app:argType="long" />
     </fragment>
 </navigation>

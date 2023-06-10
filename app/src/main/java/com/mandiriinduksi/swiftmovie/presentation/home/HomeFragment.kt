@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
     private fun setupPopularMovieAdapter(){
         moviePopularAdapter = MoviePopularAdapter(listOf(), object : OnAdapterListener{
             override fun onCLick(movie: Movie) {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie.title, movie.overview, movie.rating.toString(), movie.posterPath))
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie.title, movie.overview, movie.rating.toString(), movie.posterPath, movie.id))
             }
         })
         moviePopularRecyclerView.adapter = moviePopularAdapter
@@ -103,7 +103,8 @@ class HomeFragment : Fragment() {
                     movie.title,
                     movie.overview,
                     movie.rating.toString(),
-                    movie.posterPath
+                    movie.posterPath,
+                    movie.id
                 ))
             }
         })

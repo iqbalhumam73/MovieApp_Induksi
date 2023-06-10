@@ -23,4 +23,6 @@ object MoviesRepository {
 
     fun getTopRatedMovies(page: Int) = apiService.getTopRatedrMovies(page = page)
 
+    fun getMovieDetail(movie_id : Long, page : Int) = apiService.getMovieDetail(movie_id)
+
 }
