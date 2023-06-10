@@ -1,6 +1,5 @@
 package com.mandiriinduksi.swiftmovie.presentation.home
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,18 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import androidx.recyclerview.widget.RecyclerView.Recycler
-import com.mandiriinduksi.swiftmovie.R
 import com.mandiriinduksi.swiftmovie.data.network.ApiService
-import com.mandiriinduksi.swiftmovie.data.network.MoviesRepository
 import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentHomeBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.math.log
+import androidx.navigation.fragment.findNavController
 
 class HomeFragment : Fragment() {
 
@@ -96,12 +88,25 @@ class HomeFragment : Fragment() {
 
     //-----------------------------------------------------------------------
     private fun setupPopularMovieAdapter(){
-        moviePopularAdapter = MoviePopularAdapter(listOf())
+        moviePopularAdapter = MoviePopularAdapter(listOf(), object : OnAdapterListener{
+            override fun onCLick(movie: Movie) {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie.title, movie.overview, movie.rating.toString(), movie.posterPath))
+            }
+        })
         moviePopularRecyclerView.adapter = moviePopularAdapter
     }
 
     private fun setupTopRatedMovieAdapter(){
-        movieTopRatedAdapter = MovieTopRatedAdapter(listOf())
+        movieTopRatedAdapter = MovieTopRatedAdapter(listOf(), object : OnAdapterListener{
+            override fun onCLick(movie: Movie) {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
+                    movie.title,
+                    movie.overview,
+                    movie.rating.toString(),
+                    movie.posterPath
+                ))
+            }
+        })
         movieTopRatedRecyclerView.adapter = movieTopRatedAdapter
     }
 
