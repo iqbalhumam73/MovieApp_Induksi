@@ -3,45 +3,25 @@ package com.mandiriinduksi.swiftmovie.data.network.response
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
-    @SerializedName("adult")
-    val adult: Boolean,
 
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
 
     @SerializedName("genre_ids")
-    val genreIds: IntArray,
+    val genreIds: IntArray?,
 
     @SerializedName("id")
     val id: Long,
 
-    @SerializedName("original_language")
-    val originalLanguage: String,
-
-    @SerializedName("original_title")
-    val originalTitle: String,
-
     @SerializedName("overview")
-    val overview: String,
-
-    @SerializedName("popularity")
-    val popularity: Double,
+    val overview: String?,
 
     @SerializedName("poster_path")
-    val posterPath: String,
-
-    @SerializedName("release_date")
-    val releaseDate: String,
+    val posterPath: String?,
 
     @SerializedName("title")
-    val title: String,
-
-    @SerializedName("video")
-    val video: Boolean,
+    val title: String?,
 
     @SerializedName("vote_average")
-    val rating: Float,
-
-    @SerializedName("vote_count")
-    val voteCount: Int
+    val rating: Float?
 )

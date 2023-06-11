@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mandiriinduksi.swiftmovie.R
@@ -26,11 +27,7 @@ class MovieDetailFragment : Fragment() {
     lateinit var binding : FragmentMovieDetailBinding
     private val args by navArgs<MovieDetailFragmentArgs>()
 
-    var moviePosterParam : String = ""
-    var movieTitleParam : String = ""
-    var movieOverviewParam : String = ""
-    var movieRatingParam : String = ""
-    var movieIdParam : Long = 0
+    lateinit var movieDetailViewModel : MovieDetailViewModel
 
     //test
     private lateinit var apiService: ApiService
@@ -41,6 +38,8 @@ class MovieDetailFragment : Fragment() {
 
         //test
         apiService = RetrofitInstance.apiService
+
+        movieDetailViewModel = ViewModelProvider(requireActivity())[MovieDetailViewModel::class.java]
         //test
     }
 
@@ -55,26 +54,11 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        moviePosterParam = args.moviePosterArgs
-        movieTitleParam = args.movieTitleArgs
-        movieOverviewParam = args.movieOverviewArgs
-        movieRatingParam = args.movieRatingArgs
-
-        binding.apply {
-            tvMovieTitle.setText(movieTitleParam)
-            tvMovieOverview.setText(movieOverviewParam)
-            tvMovieRating.setText(movieRatingParam)
-
-            val moviePosterUrl = "https://image.tmdb.org/t/p/w342${moviePosterParam}"
-
-            Glide.with(requireActivity())
-                .load(moviePosterUrl)
-                .into(ivMoviePoster)
+        val movieIdParam = args.movieIdArgs
+        CoroutineScope(Dispatchers.Main).launch {
+            setMovieDetailData(movieIdParam)
         }
 
-        //test
-        getMovieData(movieIdParam)
-        //test
     }
 
     companion object {
@@ -83,11 +67,17 @@ class MovieDetailFragment : Fragment() {
             MovieDetailFragment()
     }
 
-    fun getMovieData(movieId : Long){
-        CoroutineScope(Dispatchers.IO).launch {
-            val movie = apiService.getMovieDetail(movieId)
-//            val responseName = movie.body()?.title.toString()
-//            Log.d("movieResp", responseName)
+    suspend fun setMovieDetailData(id : Long){
+        val movie : Movie = movieDetailViewModel.getMovieData(id)
+        binding.apply {
+            tvMovieTitle.setText(movie.title)
+            tvMovieRating.setText(movie.rating.toString())
+            tvMovieOverview.setText(movie.overview)
+
+            Glide.with(requireActivity())
+                .load(movie.posterPath)
+                .into(binding.ivMoviePoster)
         }
     }
+
 }

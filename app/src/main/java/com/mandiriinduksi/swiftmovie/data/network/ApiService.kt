@@ -1,5 +1,6 @@
 package com.mandiriinduksi.swiftmovie.data.network
 
+import com.google.gson.JsonObject
 import com.mandiriinduksi.swiftmovie.data.network.response.BaseMovie
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import retrofit2.Call
@@ -23,8 +24,8 @@ interface ApiService {
     ): Call<BaseMovie>
 
     @GET("movie/{movie_id}")
-    fun getMovieDetail(
+    suspend fun getMovieDetail(
         @Path("movie_id") movie_id: Long,
         @Query("api_key") apiKey: String = "55c3402a26c2959019ef64b285ec6b6a"
-    ): Response<Movie>
+    ): Response<JsonObject>
 }

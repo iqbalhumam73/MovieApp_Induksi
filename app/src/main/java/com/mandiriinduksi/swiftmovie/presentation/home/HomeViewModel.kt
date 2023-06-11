@@ -1,14 +1,18 @@
 package com.mandiriinduksi.swiftmovie.presentation.home
 
+import android.util.JsonReader
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.JsonObject
 import com.mandiriinduksi.swiftmovie.data.network.MoviesRepository
+import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.BaseMovie
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.random.Random
 
 class HomeViewModel: ViewModel() {
 
@@ -52,5 +56,46 @@ class HomeViewModel: ViewModel() {
                 onError.invoke()
             }
         })
+    }
+
+    suspend fun getMainMovie() : Movie {
+        lateinit var movieReturn : Movie
+        var randomId : Long = 0
+
+
+        lateinit var movieResponse : Response<JsonObject>
+        var moviePosterResponse : String? = null
+        var movieTitleResponse : String? = null
+        var movieRatingResponse : Float? = null
+        var movieOverviewResponse : String? = null
+
+        var count = 1
+        do {
+            randomId = Random.nextLong(600000)
+            Log.d("moviemaintitle", "run : ${count}")
+            movieResponse = RetrofitInstance.apiService.getMovieDetail(randomId)
+            moviePosterResponse = movieResponse.body()?.get("poster_path").toString().replace("\"", "")
+            Log.d("moviemaintitle", "poster path @ VM : ${moviePosterResponse}")
+            count++
+        }while (moviePosterResponse == "null")
+
+         movieTitleResponse = movieResponse.body()?.get("title").toString().replace("\"", "")
+         movieOverviewResponse = movieResponse.body()?.get("overview").toString().replace("\"", "")
+
+
+        val moviePosterUrl = "https://image.tmdb.org/t/p/w342${moviePosterResponse}"
+        Log.d("movieposterresponse", moviePosterUrl)
+
+        movieReturn = Movie(
+            id = randomId,
+            title = movieTitleResponse,
+            rating = null,
+            overview = movieOverviewResponse,
+            posterPath = moviePosterUrl,
+            backdropPath = null,
+            genreIds = null
+        )
+
+        return movieReturn
     }
 }

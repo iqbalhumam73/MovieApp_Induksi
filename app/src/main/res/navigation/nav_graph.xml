@@ -28,18 +28,6 @@
         android:name="com.mandiriinduksi.swiftmovie.presentation.moviedetail.MovieDetailFragment"
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail" >
-        <argument
-            android:name="movieTitleArgs"
-            app:argType="string" />
-        <argument
-            android:name="movieOverviewArgs"
-            app:argType="string" />
-        <argument
-            android:name="movieRatingArgs"
-            app:argType="string" />
-        <argument
-            android:name="moviePosterArgs"
-            app:argType="string" />
         <argument android:name="movieIdArgs"
             app:argType="long" />
     </fragment>
