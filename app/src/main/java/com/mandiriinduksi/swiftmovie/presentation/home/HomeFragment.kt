@@ -15,6 +15,10 @@ import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentHomeBinding
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -47,10 +51,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupApi()
-        setupLayoutManager()
-        setupPopularRV()
-        setupTopRatedRV()
+        CoroutineScope(Dispatchers.Main).launch {
+            setupApi()
+            setupLayoutManager()
+            setupPopularRV()
+            setupTopRatedRV()
+            getMainMovie()
+        }
     }
 
     companion object {
@@ -61,6 +68,17 @@ class HomeFragment : Fragment() {
 
     private fun setupApi(){
         apiService = RetrofitInstance.apiService
+    }
+
+    suspend fun getMainMovie(){
+        val movieMain = homeViewModel.getMainMovie()
+        Log.d("moviemaintitle", "poster path @ main : ${movieMain.posterPath.toString()}")
+        Log.d("moviemaintitle", "id @ main : ${movieMain.id.toString()}")
+        binding.apply {
+            Glide.with(requireActivity())
+                .load(movieMain.posterPath)
+                .into(binding.ivMainMovie)
+        }
     }
 
     private fun setupLayoutManager() : LayoutManager{
@@ -90,7 +108,9 @@ class HomeFragment : Fragment() {
     private fun setupPopularMovieAdapter(){
         moviePopularAdapter = MoviePopularAdapter(listOf(), object : OnAdapterListener{
             override fun onCLick(movie: Movie) {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie.title, movie.overview, movie.rating.toString(), movie.posterPath))
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
+                    movie.id
+                ))
             }
         })
         moviePopularRecyclerView.adapter = moviePopularAdapter
@@ -100,10 +120,7 @@ class HomeFragment : Fragment() {
         movieTopRatedAdapter = MovieTopRatedAdapter(listOf(), object : OnAdapterListener{
             override fun onCLick(movie: Movie) {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
-                    movie.title,
-                    movie.overview,
-                    movie.rating.toString(),
-                    movie.posterPath
+                    movie.id
                 ))
             }
         })

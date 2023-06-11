@@ -1,27 +1,46 @@
 package com.mandiriinduksi.swiftmovie.presentation.moviedetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mandiriinduksi.swiftmovie.R
+import com.mandiriinduksi.swiftmovie.data.network.ApiService
+import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
+import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentMovieDetailBinding
+import com.google.gson.JsonObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
+import kotlin.math.log
+
 
 class MovieDetailFragment : Fragment() {
 
     lateinit var binding : FragmentMovieDetailBinding
     private val args by navArgs<MovieDetailFragmentArgs>()
 
-    var moviePoster : String = ""
-    var movieTitle : String = ""
-    var movieOverview : String = ""
-    var movieRating : String = ""
+    lateinit var movieDetailViewModel : MovieDetailViewModel
+
+    //test
+    private lateinit var apiService: ApiService
+    //test
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //test
+        apiService = RetrofitInstance.apiService
+
+        movieDetailViewModel = ViewModelProvider(requireActivity())[MovieDetailViewModel::class.java]
+        //test
     }
 
     override fun onCreateView(
@@ -35,22 +54,9 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        moviePoster = args.moviePoster
-        movieTitle = args.movieTitle
-        movieOverview = args.movieOverview
-        movieRating = args.movieRating
-
-        binding.apply {
-            tvMovieTitle.setText(movieTitle)
-            tvMovieOverview.setText(movieOverview)
-            tvMovieRating.setText(movieRating)
-
-            val moviePosterUrl = "https://image.tmdb.org/t/p/w342${moviePoster}"
-
-            Glide.with(requireActivity())
-                .load(moviePosterUrl)
-                .into(ivMoviePoster)
-
+        val movieIdParam = args.movieIdArgs
+        CoroutineScope(Dispatchers.Main).launch {
+            setMovieDetailData(movieIdParam)
         }
 
     }
@@ -60,4 +66,18 @@ class MovieDetailFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             MovieDetailFragment()
     }
+
+    suspend fun setMovieDetailData(id : Long){
+        val movie : Movie = movieDetailViewModel.getMovieData(id)
+        binding.apply {
+            tvMovieTitle.setText(movie.title)
+            tvMovieRating.setText(movie.rating.toString())
+            tvMovieOverview.setText(movie.overview)
+
+            Glide.with(requireActivity())
+                .load(movie.posterPath)
+                .into(binding.ivMoviePoster)
+        }
+    }
+
 }
