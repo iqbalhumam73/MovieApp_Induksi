@@ -68,6 +68,7 @@ class HomeViewModel: ViewModel() {
         var movieTitleResponse : String? = null
         var movieRatingResponse : Float? = null
         var movieOverviewResponse : String? = null
+        var movieAdultResponse : String? = null
 
         var count = 1
         do {
@@ -75,9 +76,11 @@ class HomeViewModel: ViewModel() {
             Log.d("moviemaintitle", "run : ${count}")
             movieResponse = RetrofitInstance.apiService.getMovieDetail(randomId)
             moviePosterResponse = movieResponse.body()?.get("poster_path").toString().replace("\"", "")
+            movieAdultResponse = movieResponse.body()?.get("adult").toString().replace("\"", "")
             Log.d("moviemaintitle", "poster path @ VM : ${moviePosterResponse}")
+            Log.d("moviemaintitle", "poster adult @ VM : ${movieAdultResponse}")
             count++
-        }while (moviePosterResponse == "null")
+        }while (moviePosterResponse == "null" || movieAdultResponse == "true")
 
          movieTitleResponse = movieResponse.body()?.get("title").toString().replace("\"", "")
          movieOverviewResponse = movieResponse.body()?.get("overview").toString().replace("\"", "")
@@ -87,6 +90,7 @@ class HomeViewModel: ViewModel() {
         Log.d("movieposterresponse", moviePosterUrl)
 
         movieReturn = Movie(
+            adult = null,
             id = randomId,
             title = movieTitleResponse,
             rating = null,

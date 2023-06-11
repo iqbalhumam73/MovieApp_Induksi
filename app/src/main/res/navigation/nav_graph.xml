@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_exploreFragment2"
+            app:destination="@id/exploreFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -30,5 +42,35 @@
         tools:layout="@layout/fragment_movie_detail" >
         <argument android:name="movieIdArgs"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.mandiriinduksi.swiftmovie.presentation.explore.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mandiriinduksi.swiftmovie.presentation.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
