@@ -5,4 +5,9 @@
         <item name="cornerRadius">36dp</item>
     </style>
 
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColorHint">@color/neutral_5</item>
+        <item name="android:imeOptions">actionSearch</item>
+    </style>
+
 </resources>
