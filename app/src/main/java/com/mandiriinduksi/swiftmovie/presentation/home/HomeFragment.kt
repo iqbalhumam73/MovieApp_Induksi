@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             setupApi()
-            setupLayoutManager()
+//            setupLayoutManager()
             setupPopularRV()
             setupTopRatedRV()
             getMainMovie()
