@@ -40,6 +40,7 @@ class MovieDetailViewModel: ViewModel() {
         Log.d("movieposterresponse", moviePosterUrl)
 
         movieReturn = Movie(
+            adult = null,
             id = movieId,
             title = movieTitleResponse,
             rating = movieRatingResponseRound.toFloat(),
