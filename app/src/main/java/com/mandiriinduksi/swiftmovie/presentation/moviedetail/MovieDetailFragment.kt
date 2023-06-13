@@ -1,7 +1,6 @@
 package com.mandiriinduksi.swiftmovie.presentation.moviedetail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.mandiriinduksi.swiftmovie.R
 import com.mandiriinduksi.swiftmovie.data.network.ApiService
 import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentMovieDetailBinding
-import com.google.gson.JsonObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
-import kotlin.math.log
 
 
 class MovieDetailFragment : Fragment() {
@@ -29,18 +24,15 @@ class MovieDetailFragment : Fragment() {
 
     lateinit var movieDetailViewModel : MovieDetailViewModel
 
-    //test
     private lateinit var apiService: ApiService
-    //test
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //test
         apiService = RetrofitInstance.apiService
 
         movieDetailViewModel = ViewModelProvider(requireActivity())[MovieDetailViewModel::class.java]
-        //test
+
     }
 
     override fun onCreateView(

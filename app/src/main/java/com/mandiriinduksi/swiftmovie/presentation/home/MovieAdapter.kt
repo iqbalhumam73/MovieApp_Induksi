@@ -37,7 +37,4 @@ open class MovieAdapter (
         notifyDataSetChanged()
     }
 
-    interface onAdapterListener{
-        fun onCLick(movie: Movie)
-    }
 }

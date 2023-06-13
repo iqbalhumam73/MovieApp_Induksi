@@ -1,8 +1,5 @@
 package com.mandiriinduksi.swiftmovie.data.network
 
-import android.util.Log
-import com.mandiriinduksi.swiftmovie.data.network.response.BaseMovie
-import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,7 +10,6 @@ object MoviesRepository {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(GsonConverterFactory.create())
-//                .client(client)
             .build()
 
         apiService = retrofit.create(ApiService::class.java)

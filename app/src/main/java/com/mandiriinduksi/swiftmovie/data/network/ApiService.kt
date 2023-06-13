@@ -2,7 +2,6 @@ package com.mandiriinduksi.swiftmovie.data.network
 
 import com.google.gson.JsonObject
 import com.mandiriinduksi.swiftmovie.data.network.response.BaseMovie
-import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET

@@ -33,7 +33,6 @@ class HomeViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<BaseMovie>, t: Throwable) {
-//                Log.d("Respository", "Failed ")
                 onError.invoke()
             }
         })

@@ -53,7 +53,6 @@ class HomeFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             setupApi()
-//            setupLayoutManager()
             setupPopularRV()
             setupTopRatedRV()
             getMainMovie()
@@ -129,12 +128,10 @@ class HomeFragment : Fragment() {
 
     // ---------------------------------------------------------------------
     private fun onPopularMoviesFetched(movies: List<Movie>){
-        Log.d("Repository", "Moviesaaa: $movies from main activity")
         moviePopularAdapter.updateMovie(movies)
     }
 
     private fun onTopRatedMoviesFetched(movies: List<Movie>){
-        Log.d("Repository", "Moviesaaa: $movies from main activity")
         movieTopRatedAdapter.updateMovie(movies)
     }
 

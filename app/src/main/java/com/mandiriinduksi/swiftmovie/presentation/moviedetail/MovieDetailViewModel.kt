@@ -1,28 +1,10 @@
 package com.mandiriinduksi.swiftmovie.presentation.moviedetail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide
-import com.google.gson.JsonObject
-import com.mandiriinduksi.swiftmovie.data.network.MoviesRepository
 import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance.Companion.apiService
-import retrofit2.Response
-import com.mandiriinduksi.swiftmovie.data.network.response.BaseMovie
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.security.auth.callback.Callback
-import kotlin.random.Random
 
 class MovieDetailViewModel: ViewModel() {
-
-    fun getMovieDetail(movie_id: Long, page: Int){
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = MoviesRepository.getMovieDetail(movie_id, page)
-            Log.d("response", response.toString())
-        }
-    }
 
     suspend fun getMovieData(movieId : Long): Movie {
         lateinit var movieReturn : Movie
@@ -37,7 +19,6 @@ class MovieDetailViewModel: ViewModel() {
         val movieRatingResponseRound = (Math.round(movieRatingResponse.toFloat() * 10) / 10.0f).toString()
 
         val moviePosterUrl = "https://image.tmdb.org/t/p/w342${moviePosterResponse}"
-        Log.d("movieposterresponse", moviePosterUrl)
 
         movieReturn = Movie(
             adult = null,

@@ -7,17 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mandiriinduksi.swiftmovie.R
 import com.mandiriinduksi.swiftmovie.data.network.ApiService
 import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentExploreBinding
-import com.mandiriinduksi.swiftmovie.presentation.home.HomeFragmentDirections
 import com.mandiriinduksi.swiftmovie.presentation.home.OnAdapterListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,9 +50,6 @@ class ExploreFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             setupApi()
-//            setupLayoutManager()
-//            setupSearchRV()
-//            getMovieExplore()
         }
 
         binding.svSearchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -108,7 +102,6 @@ class ExploreFragment : Fragment() {
     }
 
     private fun onExploreMoviesFetched(movies: List<Movie>){
-        Log.d("Repository", "Moviesaaa: $movies from main activity")
         movieExploreAdapter.updateMovie(movies)
     }
 

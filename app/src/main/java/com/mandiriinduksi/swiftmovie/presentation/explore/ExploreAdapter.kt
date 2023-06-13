@@ -6,9 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.ExploreMovieCardBinding
-import com.mandiriinduksi.swiftmovie.databinding.HomeMovieCardBinding
-import com.mandiriinduksi.swiftmovie.presentation.home.MovieAdapter
-import com.mandiriinduksi.swiftmovie.presentation.home.MovieViewHolder
 import com.mandiriinduksi.swiftmovie.presentation.home.OnAdapterListener
 
 class ExploreAdapter(

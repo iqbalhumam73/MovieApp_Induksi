@@ -37,7 +37,7 @@
             android:id="@+id/tv_movie_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/loading"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie_poster"
             android:layout_marginLeft="12dp"
