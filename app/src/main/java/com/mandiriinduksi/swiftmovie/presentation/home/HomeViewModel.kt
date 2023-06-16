@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
+import com.mandiriinduksi.swiftmovie.data.network.ApiConstants
 import com.mandiriinduksi.swiftmovie.data.network.MoviesRepository
 import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.BaseMovie
@@ -85,7 +86,7 @@ class HomeViewModel: ViewModel() {
          movieOverviewResponse = movieResponse.body()?.get("overview").toString().replace("\"", "")
 
 
-        val moviePosterUrl = "https://image.tmdb.org/t/p/w342${moviePosterResponse}"
+        val moviePosterUrl = ApiConstants.img_base_url+moviePosterResponse
         Log.d("movieposterresponse", moviePosterUrl)
 
         movieReturn = Movie(

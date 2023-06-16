@@ -1,6 +1,7 @@
 package com.mandiriinduksi.swiftmovie.presentation.moviedetail
 
 import androidx.lifecycle.ViewModel
+import com.mandiriinduksi.swiftmovie.data.network.ApiConstants
 import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance.Companion.apiService
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 
@@ -18,7 +19,7 @@ class MovieDetailViewModel: ViewModel() {
 
         val movieRatingResponseRound = (Math.round(movieRatingResponse.toFloat() * 10) / 10.0f).toString()
 
-        val moviePosterUrl = "https://image.tmdb.org/t/p/w342${moviePosterResponse}"
+        val moviePosterUrl = ApiConstants.img_base_url+moviePosterResponse
 
         movieReturn = Movie(
             adult = null,
