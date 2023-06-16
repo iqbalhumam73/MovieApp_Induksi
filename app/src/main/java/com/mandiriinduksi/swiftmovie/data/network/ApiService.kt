@@ -12,25 +12,25 @@ interface ApiService {
 
     @GET("movie/popular")
     fun getPopularMovies(
-        @Query("api_key") apiKey: String = "55c3402a26c2959019ef64b285ec6b6a",
+        @Query("api_key") apiKey: String = ApiConstants.api_key,
         @Query("page") page: Int
     ): Call<BaseMovie>
 
     @GET("movie/top_rated")
     fun getTopRatedrMovies(
-        @Query("api_key") apiKey: String = "55c3402a26c2959019ef64b285ec6b6a",
+        @Query("api_key") apiKey: String = ApiConstants.api_key,
         @Query("page") page: Int
     ): Call<BaseMovie>
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetail(
         @Path("movie_id") movie_id: Long,
-        @Query("api_key") apiKey: String = "55c3402a26c2959019ef64b285ec6b6a"
+        @Query("api_key") apiKey: String = ApiConstants.api_key
     ): Response<JsonObject>
 
     @GET("search/movie")
     fun exploreMovie(
-        @Query("api_key") apiKey: String = "55c3402a26c2959019ef64b285ec6b6a",
+        @Query("api_key") apiKey: String = ApiConstants.api_key,
         @Query("page") page: Int,
         @Query("query") searchInput: String
     ): Call<BaseMovie>
