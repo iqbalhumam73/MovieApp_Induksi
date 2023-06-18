@@ -53,9 +53,9 @@ class HomeFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             setupApi()
+            getMainMovie()
             setupPopularRV()
             setupTopRatedRV()
-            getMainMovie()
         }
     }
 

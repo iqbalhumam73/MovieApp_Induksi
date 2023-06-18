@@ -19,7 +19,7 @@ object MoviesRepository {
 
     fun getTopRatedMovies(page: Int) = apiService.getTopRatedrMovies(page = page)
 
-    suspend fun getMovieDetail(movie_id : Long, page : Int) = apiService.getMovieDetail(movie_id)
+    suspend fun getMovieDetail(movie_id : Long) = apiService.getMovieDetail(movie_id)
 
     fun exploreMovie(page : Int, searchInput: String) = apiService.exploreMovie(page = page, searchInput = searchInput)
 

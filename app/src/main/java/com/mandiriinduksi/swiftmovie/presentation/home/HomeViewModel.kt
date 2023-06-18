@@ -61,32 +61,23 @@ class HomeViewModel: ViewModel() {
         lateinit var movieReturn : Movie
         var randomId : Long = 0
 
-
         lateinit var movieResponse : Response<JsonObject>
-        var moviePosterResponse : String? = null
-        var movieTitleResponse : String? = null
-        var movieRatingResponse : Float? = null
-        var movieOverviewResponse : String? = null
-        var movieAdultResponse : String? = null
+        var moviePosterResponse : String?
+        var movieTitleResponse : String?
+        var movieOverviewResponse : String?
+        var movieAdultResponse : String?
 
-        var count = 1
         do {
             randomId = Random.nextLong(600000)
-            Log.d("moviemaintitle", "run : ${count}")
-            movieResponse = RetrofitInstance.apiService.getMovieDetail(randomId)
+            movieResponse = MoviesRepository.getMovieDetail(randomId)
             moviePosterResponse = movieResponse.body()?.get("poster_path").toString().replace("\"", "")
             movieAdultResponse = movieResponse.body()?.get("adult").toString().replace("\"", "")
-            Log.d("moviemaintitle", "poster path @ VM : ${moviePosterResponse}")
-            Log.d("moviemaintitle", "poster adult @ VM : ${movieAdultResponse}")
-            count++
         }while (moviePosterResponse == "null" || movieAdultResponse == "true")
 
          movieTitleResponse = movieResponse.body()?.get("title").toString().replace("\"", "")
          movieOverviewResponse = movieResponse.body()?.get("overview").toString().replace("\"", "")
 
-
         val moviePosterUrl = "https://image.tmdb.org/t/p/w342${moviePosterResponse}"
-        Log.d("movieposterresponse", moviePosterUrl)
 
         movieReturn = Movie(
             adult = null,
