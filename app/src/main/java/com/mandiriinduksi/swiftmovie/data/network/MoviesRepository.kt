@@ -8,7 +8,7 @@ object MoviesRepository {
     private val apiService: ApiService
     init{
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(ApiConstants.base_url)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
