@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,14 +17,19 @@ import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentHomeBinding
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var apiService: ApiService
+
+    @Inject
+    lateinit var apiService: ApiService
 
 
     lateinit var moviePopularAdapter: MoviePopularAdapter
@@ -32,11 +38,11 @@ class HomeFragment : Fragment() {
     lateinit var moviePopularRecyclerView: RecyclerView
     lateinit var movieTopRatedRecyclerView: RecyclerView
 
-    lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+//        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -52,7 +58,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         CoroutineScope(Dispatchers.Main).launch {
-            setupApi()
             getMainMovie()
             setupPopularRV()
             setupTopRatedRV()
@@ -63,10 +68,6 @@ class HomeFragment : Fragment() {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment()
-    }
-
-    private fun setupApi(){
-        apiService = RetrofitInstance.apiService
     }
 
     suspend fun getMainMovie(){

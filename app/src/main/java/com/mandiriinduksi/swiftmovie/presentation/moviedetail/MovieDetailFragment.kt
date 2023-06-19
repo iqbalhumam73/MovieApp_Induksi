@@ -12,11 +12,13 @@ import com.mandiriinduksi.swiftmovie.data.network.ApiService
 import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentMovieDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
 
     lateinit var binding : FragmentMovieDetailBinding
@@ -24,12 +26,11 @@ class MovieDetailFragment : Fragment() {
 
     lateinit var movieDetailViewModel : MovieDetailViewModel
 
-    private lateinit var apiService: ApiService
+    @Inject
+    lateinit var apiService: ApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        apiService = RetrofitInstance.apiService
 
         movieDetailViewModel = ViewModelProvider(requireActivity())[MovieDetailViewModel::class.java]
 
