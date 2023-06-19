@@ -16,14 +16,19 @@ import com.mandiriinduksi.swiftmovie.data.network.RetrofitInstance
 import com.mandiriinduksi.swiftmovie.data.network.response.Movie
 import com.mandiriinduksi.swiftmovie.databinding.FragmentExploreBinding
 import com.mandiriinduksi.swiftmovie.presentation.home.OnAdapterListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ExploreFragment : Fragment() {
 
     private lateinit var binding : FragmentExploreBinding
-    private lateinit var apiService : ApiService
+
+    @Inject
+    lateinit var apiService : ApiService
 
     lateinit var movieExploreRecyclerView: RecyclerView
 
@@ -47,8 +52,6 @@ class ExploreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupApi()
 
         binding.svSearchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
