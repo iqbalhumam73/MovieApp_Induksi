@@ -9,33 +9,16 @@
     android:padding="24dp"
     tools:context=".presentation.splash.SplashFragment">
 
-    <TextView
-        android:id="@+id/tv_swift"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SWIFT"
-        android:textSize="46sp"
-        android:textStyle="bold"
-        android:textColor="@color/red_6"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/swiftmovielogo2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_movie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MOVIE"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="@color/red_6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_swift"
-        android:layout_marginTop="0dp"
         />
-
 
     <ImageView
         android:id="@+id/imageView2"
