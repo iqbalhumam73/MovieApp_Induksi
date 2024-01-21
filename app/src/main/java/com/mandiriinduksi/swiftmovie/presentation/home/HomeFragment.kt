@@ -41,8 +41,6 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -72,8 +70,6 @@ class HomeFragment : Fragment() {
 
     suspend fun getMainMovie(){
         val movieMain = homeViewModel.getMainMovie()
-        Log.d("moviemaintitle", "poster path @ main : ${movieMain.posterPath.toString()}")
-        Log.d("moviemaintitle", "id @ main : ${movieMain.id.toString()}")
         binding.apply {
             Glide.with(requireActivity())
                 .load(movieMain.posterPath)
@@ -104,7 +100,6 @@ class HomeFragment : Fragment() {
         homeViewModel.getTopRatedMovies(onSuccess = ::onTopRatedMoviesFetched, onError = ::onError)
     }
 
-    //-----------------------------------------------------------------------
     private fun setupPopularMovieAdapter(){
         moviePopularAdapter = MoviePopularAdapter(listOf(), object : OnAdapterListener{
             override fun onCLick(movie: Movie) {
@@ -127,7 +122,6 @@ class HomeFragment : Fragment() {
         movieTopRatedRecyclerView.adapter = movieTopRatedAdapter
     }
 
-    // ---------------------------------------------------------------------
     private fun onPopularMoviesFetched(movies: List<Movie>){
         moviePopularAdapter.updateMovie(movies)
     }
@@ -137,6 +131,5 @@ class HomeFragment : Fragment() {
     }
 
     private fun onError(){
-        Log.d("Repository", "Response null from main activity")
     }
 }

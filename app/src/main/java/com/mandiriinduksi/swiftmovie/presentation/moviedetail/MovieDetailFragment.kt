@@ -51,7 +51,6 @@ class MovieDetailFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             setMovieDetailData(movieIdParam)
         }
-
     }
 
     companion object {
