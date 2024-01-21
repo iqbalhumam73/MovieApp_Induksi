@@ -41,10 +41,6 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.exploreFragment, null, navOptions)
                     true
                 }
-//                R.id.bot_nav_menu_profile -> {
-//                    navController.navigate(R.id.profileFragment, null, navOptions)
-//                    true
-//                }
                 else -> false
             }
         }

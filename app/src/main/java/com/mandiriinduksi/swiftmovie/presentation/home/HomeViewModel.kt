@@ -18,7 +18,6 @@ import kotlin.random.Random
 class HomeViewModel: ViewModel() {
 
     fun getPopularMovies(page: Int = 1, onSuccess: (movies: List<Movie>) -> Unit, onError: () -> Unit){
-        Log.d("Repository", "Running getPopularMovies function")
         MoviesRepository.getPopularMovies(page).enqueue(object:
             Callback<BaseMovie> {
             override fun onResponse(call: Call<BaseMovie>, response: Response<BaseMovie>){
